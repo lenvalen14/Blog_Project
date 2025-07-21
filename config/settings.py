@@ -109,7 +109,23 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+
 }
+
+AUTHENTICATION_BACKENDS = [
+    'apps.posts.backends.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # fallback nếu cần dùng username
+]
+
 
 SPECTACULAR_SETTINGS = {
     # THÔNG TIN CHUNG CỦA API
